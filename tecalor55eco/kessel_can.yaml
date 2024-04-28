@@ -1,0 +1,58 @@
+ - lambda: |-
+            unsigned short canId = 180;
+            std::string value;
+            const ElsterIndex* ei = processCanMessage(canId, value, x);
+
+                   - lambda: |-
+            unsigned short canId = 180;
+            std::string value;
+            const ElsterIndex* ei = processCanMessage(canId, value, x);
+
+            if(ei->Name == "AUSSENTEMP") {
+              id(AUSSENTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "BUSKONTROLLE") {
+              id(BUSKONTROLLE).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "EINSTELL_SPEICHERSOLLTEMP") {
+              id(EINSTELL_SPEICHERSOLLTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "EINSTELL_SPEICHERSOLLTEMP2") {
+              id(EINSTELL_SPEICHERSOLLTEMP2).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "HILFSKESSELSOLL") {
+              id(HILFSKESSELSOLL).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "INITIALISIERUNG") {
+              id(INITIALISIERUNG_KESSEL).publish_state(std::stoi(value));
+              return;
+            }          
+            if(ei->Name == "KESSELSOLLTEMP") {
+              id(KESSELSOLLTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "RUECKLAUFISTTEMP") {
+              id(RUECKLAUFISTTEMP_KESSEL).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "SPEICHERISTTEMP") {
+              id(SPEICHERISTTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "SPEICHERSOLLTEMP") {
+              id(SPEICHERSOLLTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "VORLAUFSOLLTEMP") {
+              id(VORLAUFSOLLTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "WPVORLAUFIST") {
+              id(WPVORLAUFIST_KESSEL).publish_state(std::stof(value));
+              return;
+            }      

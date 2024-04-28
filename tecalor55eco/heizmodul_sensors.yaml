@@ -1,0 +1,517 @@
+sensor:
+
+  - platform: template
+    name: "VERDAMPFERTEMP"
+    id: VERDAMPFERTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:kettle-steam-outline"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("VERDAMPFERTEMP"));
+      return {};
+     
+  - platform: template
+    name: "RUECKLAUFISTTEMP"
+    id: RUECKLAUFISTTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:waves-arrow-left"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("RUECKLAUFISTTEMP"));
+      return {};
+     
+  - platform: template
+    name: "VERDICHTER_HEIZMODUL"
+    id: VERDICHTER_HEIZMODUL
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("VERDICHTER"));
+      return {};
+     
+  - platform: template
+    name: "WPVORLAUFIST"
+    id: WPVORLAUFIST
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WPVORLAUFIST"));
+      return {};
+     
+  - platform: template
+    name: "ABTAUUNGAKTIV"
+    id: ABTAUUNGAKTIV
+    icon: "mdi:description"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("AUSSENTEMP"));
+      return {};
+     
+  - platform: template
+    name: "BETRIEBSART_WP"
+    id: BETRIEBSART_WP
+    icon: "mdi:dip-switch"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("BETRIEBSART_WP"));
+      return {};
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH
+    unit_of_measurement: Wh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_SUM_KWH"
+    id: EL_AUFNAHMELEISTUNG_WW_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_WW_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_TAG_WH"
+    id: EL_AUFNAHMELEISTUNG_WW_TAG_WH
+    unit_of_measurement: Wh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_WW_TAG_WH"));
+      return {};
+
+  - platform: template
+    name: "FATAL_ERROR"
+    id: FATAL_ERROR
+    icon: "mdi:alert-circle"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "FEHLER_PARAMETERSATZ_IWS"
+    id: FEHLER_PARAMETERSATZ_IWS
+    icon: "mdi:alert-circle"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "FEHLERMELDUNG"
+    id: FEHLERMELDUNG
+    icon: "mdi:alert-circle"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "HARDWARE_NUMMER_HEIZMODUL"
+    id: HARDWARE_NUMMER_HEIZMODUL
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "INDEX_NOT_FOUND_HEIZMODUL"
+    id: INDEX_NOT_FOUND_HEIZMODUL
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "INITIALISIERUNG_HEIZMODUL"
+    id: INITIALISIERUNG_HEIZMODUL
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "K_OS_RMX_RESERVE_INFO3"
+    id: K_OS_RMX_RESERVE_INFO3
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "LZ_VERD_1_2_WW_BETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_2_WW_BETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_2_WW_BETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_1_WW_BETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_WW_BETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_WW_BETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_2_WW_BETRIEB_HEIZMODUL"
+    id: LZ_VERD_2_WW_BETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_2_WW_BETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "PARAMETERSATZ_HEIZMODUL"
+    id: PARAMETERSATZ_HEIZMODUL
+    icon: "mdi:alert-circle"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "SCHALTFKT_IWS"
+    id: SCHALTFKT_IWS
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "SOFTWARE_NUMMER_HEIZMODUL"
+    id: SOFTWARE_NUMMER_HEIZMODUL
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "SOLAR_KOLLEKTOR_3_I_ANTEIL"
+    id: SOLAR_KOLLEKTOR_3_I_ANTEIL
+    icon: "mdi:solar-power-variant"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "SPEICHER_STATUS"
+    id: SPEICHER_STATUS
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "STUETZSTELLE_HD1"
+    id: STUETZSTELLE_HD1
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "STUETZSTELLE_HD2"
+    id: STUETZSTELLE_HD2
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "STUETZSTELLE_ND1"
+    id: STUETZSTELLE_ND1
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "STUETZSTELLE_ND2"
+    id: STUETZSTELLE_ND2
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "WAERMEERTRAG_2WE_HEIZ_SUM_KWH"
+    id: WAERMEERTRAG_2WE_HEIZ_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_2WE_HEIZ_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_2WE_WW_SUM_KWH"
+    id: WAERMEERTRAG_2WE_WW_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_2WE_WW_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_SUM_KWH"
+    id: WAERMEERTRAG_HEIZ_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_HEIZ_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_TAG_WH"
+    id: WAERMEERTRAG_HEIZ_TAG_WH
+    unit_of_measurement: Wh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_HEIZ_TAG_WH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_WW_SUM_KWH"
+    id: WAERMEERTRAG_WW_SUM_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_WW_SUM_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_WW_TAG_WH"
+    id: WAERMEERTRAG_WW_TAG_WH
+    unit_of_measurement: Wh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 0
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_WW_TAG_WH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_SUM_MWH"
+    id: EL_AUFNAHMELEISTUNG_WW_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_WW_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_TAG_KWH"
+    id: EL_AUFNAHMELEISTUNG_WW_TAG_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("EL_AUFNAHMELEISTUNG_WW_TAG_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_2WE_HEIZ_SUM_MWH"
+    id: WAERMEERTRAG_2WE_HEIZ_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_2WE_HEIZ_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_2WE_WW_SUM_MWH"
+    id: WAERMEERTRAG_2WE_WW_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_2WE_WW_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_SUM_MWH"
+    id: WAERMEERTRAG_HEIZ_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_HEIZ_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_TAG_KWH"
+    id: WAERMEERTRAG_HEIZ_TAG_KWH
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_HEIZ_TAG_KWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_WW_SUM_MWH"
+    id: WAERMEERTRAG_WW_SUM_MWH
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_WW_SUM_MWH"));
+      return {};
+     
+  - platform: template
+    name: "WAERMEERTRAG_WW_TAG_KWH"
+    id: WAERMEERTRAG_WW_TAG_KWH
+    unit_of_measurement: KWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("WAERMEERTRAG_WW_TAG_KWH"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_1_2_HEIZBETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_2_HEIZBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_2_HEIZBETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_1_2_KUEHLBETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_2_KUEHLBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_2_KUEHLBETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_1_HEIZBETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_HEIZBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_HEIZBETRIEB"));
+      return {};
+
+  - platform: template
+    name: "LZ_VERD_1_KUEHLBETRIEB_HEIZMODUL"
+    id: LZ_VERD_1_KUEHLBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_1_KUEHLBETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_2_HEIZBETRIEB_HEIZMODUL"
+    id: LZ_VERD_2_HEIZBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_2_HEIZBETRIEB"));
+      return {};
+     
+  - platform: template
+    name: "LZ_VERD_2_KUEHLBETRIEB_HEIZMODUL"
+    id: LZ_VERD_2_KUEHLBETRIEB_HEIZMODUL
+    icon: "mdi:timer"
+    device_class: "duration"
+    state_class: "measurement"
+    accuracy_decimals: 3
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_heizmodul], GetElsterIndex("LZ_VERD_2_KUEHLBETRIEB"));
+      return {};

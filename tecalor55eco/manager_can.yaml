@@ -1,0 +1,87 @@
+ - lambda: |-
+            unsigned short canId = 480;
+            std::string value;
+            const ElsterIndex* ei = processCanMessage(canId, value, x);
+
+            if(ei->Name == "JAHR") {
+                id(JAHR).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "TAG") {
+                id(TAG).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "STUNDE") {
+                id(STUNDE).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "MINUTE") {
+                id(MINUTE).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "MONAT") {
+                id(MONAT).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "PARAMETERSATZ") {
+                id(PARAMETERSATZ_MANAGER).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "VERDICHTER") {
+                id(VERDICHTER_MANAGER).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "LUEFT_PASSIVKUEHLUNG") {
+                id(LUEFT_PASSIVKUEHLUNG).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "LAUFZEIT_VERDICHTER_HEIZEN") {
+                id(LAUFZEIT_VERDICHTER_HEIZEN).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "LAUFZEIT_VERDICHTER_KUEHLEN") {
+                id(LAUFZEIT_VERDICHTER_KUEHLEN).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "LAUFZEIT_VERDICHTER_WW") {
+                id(LAUFZEIT_VERDICHTER_WW).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "RAUMTEMP_ERFASSUNG") {
+                id(RAUMTEMP_ERFASSUNG).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "TEMPORALE_LUEFTUNGSSTUFE_STUFE") {
+                id(TEMPORALE_LUEFTUNGSSTUFE_STUFE).publish_state(std::stoi(value));
+                return;
+            }
+
+            if(ei->Name == "SOMMERBETRIEB_LUEFTUNG") {
+                id(SOMMERBETRIEB_LUEFTUNG).publish_state(std::stoi(value));
+                return;
+            }
+            
+            //ohne conversion
+
+            if(ei->Name == "PROGRAMMSCHALTER") {
+                id(PROGRAMMSCHALTER).publish_state(value);
+                return;
+            }
+
+            if(ei->Name == "GERAETE_KENNUNG") {
+                id(GERAETE_KENNUNG).publish_state(value);
+                return;
+            }
+

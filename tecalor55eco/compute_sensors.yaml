@@ -1,0 +1,168 @@
+#########################################
+#                                       #
+#   BERECHNETE TEXT SENSORS            #
+#                                       #
+#########################################
+text_sensor:
+  - platform: template
+    name: "DATUM"
+    id: DATUM
+    icon: "mdi:calendar"
+
+  - platform: template
+    name: "ZEIT"
+    id: ZEIT
+    icon: "mdi:clock"
+
+sensor:
+
+#########################################
+#                                       #
+#   BERECHNETE SENSOREN                 #
+#                                       #
+#########################################
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_SUM"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_SUM"
+    id: EL_AUFNAHMELEISTUNG_WW_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_INCREASING"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_INCREASING
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_INCREASING"
+    id: EL_AUFNAHMELEISTUNG_WW_INCREASING
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_HEIZ_TAG"
+    id: EL_AUFNAHMELEISTUNG_HEIZ_TAG
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+
+  - platform: template
+    name: "EL_AUFNAHMELEISTUNG_WW_TAG"
+    id: EL_AUFNAHMELEISTUNG_WW_TAG
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:transmission-tower"
+    accuracy_decimals: 3
+
+  - platform: template
+    name: "WAERMEERTRAG_2WE_HEIZ_SUM"
+    id: WAERMEERTRAG_2WE_HEIZ_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_2WE_WW_SUM"
+    id: WAERMEERTRAG_2WE_WW_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_SUM"
+    id: WAERMEERTRAG_HEIZ_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_INCREASING"
+    id: WAERMEERTRAG_HEIZ_INCREASING
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_HEIZ_TAG"
+    id: WAERMEERTRAG_HEIZ_TAG
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+
+  - platform: template
+    name: "WAERMEERTRAG_WW_SUM"
+    id: WAERMEERTRAG_WW_SUM
+    unit_of_measurement: MWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_WW_INCREASING"
+    id: WAERMEERTRAG_WW_INCREASING
+    unit_of_measurement: kWh
+    device_class: energy
+    icon: "mdi:heating-coil"
+    accuracy_decimals: 3
+    state_class: "total_increasing"
+
+  - platform: template
+    name: "WAERMEERTRAG_WW_TAG"
+    id: WAERMEERTRAG_WW_TAG
+    unit_of_measurement: KWh
+    device_class: energy
+    icon: "mdi:water-boiler"
+    accuracy_decimals: 3
+
+  - platform: template
+    name: "COP_WW"
+    id: COP_WW
+    icon: "mdi:chart-bell-curve-cumulative"
+    device_class: "power_factor"
+    state_class: "measurement"
+    accuracy_decimals: 2
+
+  - platform: template
+    name: "COP_HEIZ"
+    id: COP_HEIZ
+    icon: "mdi:chart-bell-curve-cumulative"
+    device_class: "power_factor"
+    state_class: "measurement"
+    accuracy_decimals: 2
+
+  - platform: template
+    name: "COP_GESAMT"
+    id: COP_GESAMT
+    icon: "mdi:chart-bell-curve-cumulative"
+    device_class: "power_factor"
+    state_class: "measurement"
+    accuracy_decimals: 2

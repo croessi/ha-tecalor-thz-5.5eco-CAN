@@ -1,0 +1,260 @@
+ - lambda: |-
+            unsigned short canId = 500;
+            std::string value;
+            const ElsterIndex* ei = processCanMessage(canId, value, x);
+
+            if(ei->Name == "VERDAMPFERTEMP") {
+              id(VERDAMPFERTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "INITIALISIERUNG") {
+              id(INITIALISIERUNG_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "SPEICHER_STATUS") {
+              id(SPEICHER_STATUS).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "RUECKLAUFISTTEMP") {
+              id(RUECKLAUFISTTEMP).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "VERDICHTER") {
+              id(VERDICHTER_HEIZMODUL).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "WPVORLAUFIST") {
+              id(WPVORLAUFIST).publish_state(std::stof(value));
+              return;
+            }
+            if(ei->Name == "ABTAUUNGAKTIV") {
+              id(ABTAUUNGAKTIV).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "BETRIEBSART_WP") {
+              id(ABTAUUNGAKTIV).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH") {
+              id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH).publish_state(std::stoi(value));
+              id(EL_AUFNAHMELEISTUNG_HEIZ_SUM).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH).state + id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH).state / 1000 );
+              update_COP_HEIZ();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH") {
+              id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH).publish_state(std::stoi(value));
+              id(EL_AUFNAHMELEISTUNG_HEIZ_TAG).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH).state / 1000);
+              id(EL_AUFNAHMELEISTUNG_HEIZ_INCREASING).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH).state / 1000);
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_WW_SUM_KWH") {
+              id(EL_AUFNAHMELEISTUNG_WW_SUM_KWH).publish_state(std::stoi(value));
+              id(EL_AUFNAHMELEISTUNG_WW_SUM).publish_state(id(EL_AUFNAHMELEISTUNG_WW_SUM_MWH).state + id(EL_AUFNAHMELEISTUNG_WW_SUM_KWH).state / 1000);
+              update_COP_WW();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_WW_TAG_WH") {
+              id(EL_AUFNAHMELEISTUNG_WW_TAG_WH).publish_state(std::stoi(value));
+              id(EL_AUFNAHMELEISTUNG_WW_TAG).publish_state(id(EL_AUFNAHMELEISTUNG_WW_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_WW_TAG_WH).state / 1000);
+              id(EL_AUFNAHMELEISTUNG_WW_INCREASING).publish_state(id(EL_AUFNAHMELEISTUNG_WW_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_WW_TAG_WH).state / 1000);
+           
+              return;
+            }
+            if(ei->Name == "FATAL_ERROR") {
+              id(FATAL_ERROR).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "FEHLER_PARAMETERSATZ_IWS") {
+              id(FEHLER_PARAMETERSATZ_IWS).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "FEHLERMELDUNG") {
+              id(FEHLERMELDUNG).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "HARDWARE_NUMMER") {
+              id(HARDWARE_NUMMER_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "INDEX_NOT_FOUND") {
+              id(INDEX_NOT_FOUND_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "K_OS_RMX_RESERVE_INFO3") {
+              id(K_OS_RMX_RESERVE_INFO3).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_2_WW_BETRIEB") {
+              id(LZ_VERD_1_2_WW_BETRIEB_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_WW_BETRIEB") {
+              id(LZ_VERD_1_WW_BETRIEB_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_2_WW_BETRIEB") {
+              id(LZ_VERD_2_WW_BETRIEB_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "PARAMETERSATZ") {
+              id(PARAMETERSATZ_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "SCHALTFKT_IWS") {
+              id(SCHALTFKT_IWS).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "SOFTWARE_NUMMER") {
+              id(SOFTWARE_NUMMER_HEIZMODUL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "SOLAR_KOLLEKTOR_3_I_ANTEIL") {
+              id(SOLAR_KOLLEKTOR_3_I_ANTEIL).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "STUETZSTELLE_HD1") {
+              id(STUETZSTELLE_HD1).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "STUETZSTELLE_HD2") {
+              id(STUETZSTELLE_HD2).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "STUETZSTELLE_ND1") {
+              id(STUETZSTELLE_ND1).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "STUETZSTELLE_ND2") {
+              id(STUETZSTELLE_ND2).publish_state(std::stoi(value));
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_2WE_HEIZ_SUM_KWH") {
+              id(WAERMEERTRAG_2WE_HEIZ_SUM_KWH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_2WE_HEIZ_SUM).publish_state(id(WAERMEERTRAG_2WE_HEIZ_SUM_MWH).state+id(WAERMEERTRAG_2WE_HEIZ_SUM_KWH).state/1000);           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_2WE_WW_SUM_KWH") {
+              id(WAERMEERTRAG_2WE_WW_SUM_KWH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_2WE_WW_SUM).publish_state(id(WAERMEERTRAG_2WE_WW_SUM_MWH).state+id(WAERMEERTRAG_2WE_WW_SUM_KWH).state/1000);           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_HEIZ_SUM_KWH") {
+              id(WAERMEERTRAG_HEIZ_SUM_KWH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_HEIZ_SUM).publish_state(id(WAERMEERTRAG_HEIZ_SUM_MWH).state+id(WAERMEERTRAG_HEIZ_SUM_KWH).state/1000);
+              update_COP_HEIZ();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_HEIZ_TAG_WH") {
+              id(WAERMEERTRAG_HEIZ_TAG_WH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_HEIZ_TAG).publish_state(id(WAERMEERTRAG_HEIZ_TAG_KWH).state+id(WAERMEERTRAG_HEIZ_TAG_WH).state/1000);      
+              id(WAERMEERTRAG_HEIZ_INCREASING).publish_state(id(WAERMEERTRAG_HEIZ_TAG_KWH).state+id(WAERMEERTRAG_HEIZ_TAG_WH).state/1000);           
+     
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_WW_SUM_KWH") {
+              id(WAERMEERTRAG_WW_SUM_KWH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_WW_SUM).publish_state(id(WAERMEERTRAG_WW_SUM_MWH).state+id(WAERMEERTRAG_WW_SUM_KWH).state/1000);
+              update_COP_WW();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_WW_TAG_WH") {
+              id(WAERMEERTRAG_WW_TAG_WH).publish_state(std::stoi(value));
+              id(WAERMEERTRAG_WW_TAG).publish_state(id(WAERMEERTRAG_WW_TAG_KWH).state+id(WAERMEERTRAG_WW_TAG_WH).state/1000);
+              id(WAERMEERTRAG_WW_INCREASING).publish_state(id(WAERMEERTRAG_WW_TAG_KWH).state+id(WAERMEERTRAG_WW_TAG_WH).state/1000);           
+           
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH") {
+              id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH).publish_state(std::stod(value));
+              id(EL_AUFNAHMELEISTUNG_HEIZ_SUM).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_MWH).state+id(EL_AUFNAHMELEISTUNG_HEIZ_SUM_KWH).state/1000);
+              update_COP_HEIZ();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH") {
+              id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH).publish_state(std::stod(value));
+              id(EL_AUFNAHMELEISTUNG_HEIZ_TAG).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH).state+id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH).state/1000);      
+              id(EL_AUFNAHMELEISTUNG_HEIZ_INCREASING).publish_state(id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_HEIZ_TAG_WH).state / 1000);
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_WW_SUM_MWH") {
+              id(EL_AUFNAHMELEISTUNG_WW_SUM_MWH).publish_state(std::stod(value));
+              id(EL_AUFNAHMELEISTUNG_WW_SUM).publish_state(id(EL_AUFNAHMELEISTUNG_WW_SUM_MWH).state+id(EL_AUFNAHMELEISTUNG_WW_SUM_KWH).state/1000);
+              update_COP_WW();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "EL_AUFNAHMELEISTUNG_WW_TAG_KWH") {
+              id(EL_AUFNAHMELEISTUNG_WW_TAG_KWH).publish_state(std::stod(value));
+              id(EL_AUFNAHMELEISTUNG_WW_TAG).publish_state(id(EL_AUFNAHMELEISTUNG_WW_TAG_KWH).state+id(EL_AUFNAHMELEISTUNG_WW_TAG_WH).state/1000);      
+              id(EL_AUFNAHMELEISTUNG_WW_INCREASING).publish_state(id(EL_AUFNAHMELEISTUNG_WW_TAG_KWH).state + id(EL_AUFNAHMELEISTUNG_WW_TAG_WH).state / 1000);
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_2WE_HEIZ_SUM_MWH") {
+              id(WAERMEERTRAG_2WE_HEIZ_SUM_MWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_2WE_HEIZ_SUM).publish_state(id(WAERMEERTRAG_2WE_HEIZ_SUM_MWH).state+id(WAERMEERTRAG_2WE_HEIZ_SUM_KWH).state/1000);           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_2WE_WW_SUM_MWH") {
+              id(WAERMEERTRAG_2WE_WW_SUM_MWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_2WE_WW_SUM).publish_state(id(WAERMEERTRAG_2WE_WW_SUM_MWH).state+id(WAERMEERTRAG_2WE_WW_SUM_KWH).state/1000);           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_HEIZ_SUM_MWH") {
+              id(WAERMEERTRAG_HEIZ_SUM_MWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_HEIZ_SUM).publish_state(id(WAERMEERTRAG_HEIZ_SUM_MWH).state+id(WAERMEERTRAG_HEIZ_SUM_KWH).state/1000);
+              update_COP_HEIZ();
+              update_COP_GESAMT();
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_HEIZ_TAG_KWH") {
+              id(WAERMEERTRAG_HEIZ_TAG_KWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_HEIZ_TAG).publish_state(id(WAERMEERTRAG_HEIZ_TAG_KWH).state+id(WAERMEERTRAG_HEIZ_TAG_WH).state/1000);
+              id(WAERMEERTRAG_HEIZ_INCREASING).publish_state(id(WAERMEERTRAG_HEIZ_TAG_KWH).state+id(WAERMEERTRAG_HEIZ_TAG_WH).state/1000);           
+           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_WW_SUM_MWH") {
+              id(WAERMEERTRAG_WW_SUM_MWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_WW_SUM).publish_state(id(WAERMEERTRAG_WW_SUM_MWH).state+id(WAERMEERTRAG_WW_SUM_KWH).state/1000);           
+              return;
+            }
+            if(ei->Name == "WAERMEERTRAG_WW_TAG_KWH") {
+              id(WAERMEERTRAG_WW_TAG_KWH).publish_state(std::stod(value));
+              id(WAERMEERTRAG_WW_TAG).publish_state(id(WAERMEERTRAG_WW_TAG_KWH).state+id(WAERMEERTRAG_WW_TAG_WH).state/1000);           
+              id(WAERMEERTRAG_WW_INCREASING).publish_state(id(WAERMEERTRAG_WW_TAG_KWH).state+id(WAERMEERTRAG_WW_TAG_WH).state/1000);           
+
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_2_HEIZBETRIEB") {
+              id(LZ_VERD_1_2_HEIZBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_2_KUEHLBETRIEB") {
+              id(LZ_VERD_1_2_KUEHLBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_HEIZBETRIEB") {
+              id(LZ_VERD_1_HEIZBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_1_KUEHLBETRIEB") {
+              id(LZ_VERD_1_KUEHLBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_2_HEIZBETRIEB") {
+              id(LZ_VERD_2_HEIZBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "LZ_VERD_2_KUEHLBETRIEB") {
+              id(LZ_VERD_2_KUEHLBETRIEB_HEIZMODUL).publish_state(std::stod(value));
+              return;
+            }
+            if(ei->Name == "GERAETE_ID") {
+              id(GERAETE_ID_HEIZMODUL).publish_state(value);
+              return;
+            }

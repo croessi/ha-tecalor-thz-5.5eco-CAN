@@ -1,0 +1,154 @@
+sensor:
+
+  - platform: template
+    name: "AUSSENTEMP"
+    id: AUSSENTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("AUSSENTEMP"));
+      return {};
+
+    #Warmwasser SOLL Komfort Temperatur
+  - platform: template
+    name: "EINSTELL_SPEICHERSOLLTEMP"
+    id: EINSTELL_SPEICHERSOLLTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("EINSTELL_SPEICHERSOLLTEMP"));
+      return {};
+
+    # Warmwasser SOLL Eco Temperatur
+  - platform: template
+    name: "EINSTELL_SPEICHERSOLLTEMP2"
+    id: EINSTELL_SPEICHERSOLLTEMP2
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("EINSTELL_SPEICHERSOLLTEMP2"));
+      return {};
+
+    #T Heizkreis Soll Abfrage
+  - platform: template
+    name: "HILFSKESSELSOLL"
+    id: HILFSKESSELSOLL
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("HILFSKESSELSOLL"));
+      return {};
+
+  - platform: template
+    name: "INITIALISIERUNG_KESSEL"
+    id: INITIALISIERUNG_KESSEL
+    icon: "mdi:description"
+    accuracy_decimals: 0
+
+    #Rücklauftemperatur SOLL  - platform: template
+  - platform: template
+    name: "KESSELSOLLTEMP"
+    id: KESSELSOLLTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("KESSELSOLLTEMP"));
+      return {};
+
+    #Rücklauftemperatur IST
+  - platform: template
+    name: "RUECKLAUFISTTEMP_KESSEL"
+    id: RUECKLAUFISTTEMP_KESSEL
+    unit_of_measurement: "°C"
+    icon: "mdi:waves-arrow-left"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("RUECKLAUFISTTEMP"));
+      return {};
+
+    #Warmwasser-Temperaturabfrage + Gerätespezifischer Offset 3.9 °C
+  - platform: template
+    name: "SPEICHERISTTEMP"
+    id: SPEICHERISTTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    filters:
+      - offset: 3.9
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("SPEICHERISTTEMP"));
+      return {};
+
+    #Warmwasser SOLL Temperatur
+  - platform: template
+    name: "SPEICHERSOLLTEMP"
+    id: SPEICHERSOLLTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("SPEICHERSOLLTEMP"));
+      return {};
+
+    #Vorlauftemperatur SOLL Heizung
+  - platform: template
+    name: "VORLAUFSOLLTEMP"
+    id: VORLAUFSOLLTEMP
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("VORLAUFSOLLTEMP"));
+      return {};
+
+    # Vorlauftemperatur IST Heizung
+  - platform: template
+    name: "WPVORLAUFIST_KESSEL"
+    id: WPVORLAUFIST_KESSEL
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer-lines"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 1
+    update_interval: 10min
+    lambda: |-
+      readSignal(&CanMembers[cm_kessel], GetElsterIndex("WPVORLAUFIST"));
+      return {};
+
+  - platform: template
+    name: "BUSKONTROLLE"
+    id: BUSKONTROLLE
+    icon: "mdi:description"
+    accuracy_decimals: 0
