@@ -18,7 +18,9 @@ It is based on the great work of the Home Assistant community, especially the wo
    kessel: !include tecalor55eco/kessel_sensors.yaml
    heizmodul: !include tecalor55eco/heizmodul_sensors.yaml
    compute: !include tecalor55eco/compute_sensors.yaml
+ ```
 * add the following lines to trigger processing of incomming CAN messages (SET cs_pin according to your setup)
+ ```yaml
   canbus:
     - platform: mcp2515
       id: my_mcp2515
@@ -31,6 +33,7 @@ It is based on the great work of the Home Assistant community, especially the wo
 
     - can_id: 0x180
       then: !include tecalor55eco/kessel_can.yaml
+ ```
 
 
 * You may want to check/change the CAN IDs of the Manager, Kessel, etc. In order to do so, you have to change them in two places:
