@@ -22,6 +22,14 @@
 
 #include "ElsterTable.h"
 
+const char* getNameFromIndex(unsigned short index) {
+    for (size_t i = 0; i < sizeof(BetriebsartList) / sizeof(BetriebsartList[0]); ++i) {
+        if (BetriebsartList[i].Index == index) {
+            return BetriebsartList[i].Name;
+        }
+    }
+    return "Unknown";
+}
 
 void SetValueType(char * Val, unsigned char Type, unsigned short Value)
 {
@@ -71,10 +79,11 @@ void SetValueType(char * Val, unsigned char Type, unsigned short Value)
        break;
      
      case et_betriebsart:
-       if ((Value & 0xff) == 0 && (Value >> 8) <= (int) High(BetriebsartList))
-         strcpy(Val, BetriebsartList[Value >> 8].Name);
-       else
-         strcpy(Val, "?");
+       strcpy(Val,  getNameFromIndex(Value));
+           // if ((Value & 0xff) == 0 && (Value >> 8) <= (int) High(BetriebsartList))
+           //  strcpy(Val, BetriebsartList[Value >> 8].Name);
+           // else
+           //   strcpy(Val, "?");
        break;
 
      case et_zeit:

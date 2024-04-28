@@ -97,21 +97,21 @@ static const ElsterIndex ElsterTable[] =
 //  Name                                                 Index   Type
 //  Struktur-Definition in KElsterTable.h 
   { "INDEX_NOT_FOUND"                                  , 0x0000, 0},
-  { "FEHLERMELDUNG"                                    , 0x0001, 0},
+  { "FEHLERMELDUNG"                                    , 0x0001, 0}, //THZ
   { "KESSELSOLLTEMP"                                   , 0x0002, et_dec_val},
   { "SPEICHERSOLLTEMP"                                 , 0x0003, et_dec_val},
   { "VORLAUFSOLLTEMP"                                  , 0x0004, et_dec_val},
-  { "RAUMSOLLTEMP_I"                                   , 0x0005, et_dec_val},
+  { "RAUMSOLLTEMP_I"                                   , 0x0005, et_dec_val}, //THZ
   { "RAUMSOLLTEMP_II"                                  , 0x0006, et_dec_val},
   { "RAUMSOLLTEMP_III"                                 , 0x0007, et_dec_val},
   { "RAUMSOLLTEMP_NACHT"                               , 0x0008, et_dec_val},
   { "UHRZEIT"                                          , 0x0009, et_zeit},
   { "DATUM"                                            , 0x000a, et_datum},
   { "GERAETE_ID"                                       , 0x000b, et_dev_id},
-  { "AUSSENTEMP"                                       , 0x000c, et_dec_val},
+  { "AUSSENTEMP"                                       , 0x000c, et_dec_val}, //THZ
   { "SAMMLERISTTEMP"                                   , 0x000d, et_dec_val},  // ev. KESSELISTTEMP
-  { "SPEICHERISTTEMP"                                  , 0x000e, et_dec_val},
-  { "VORLAUFISTTEMP"                                   , 0x000f, et_dec_val},
+  { "SPEICHERISTTEMP"                                  , 0x000e, et_dec_val}, //THZ
+  { "VORLAUFISTTEMP"                                   , 0x000f, et_dec_val}, //THZ
   { "GERAETEKONFIGURATION"                             , 0x0010, 0},
   { "RAUMISTTEMP"                                      , 0x0011, et_dec_val},
   { "VERSTELLTE_RAUMSOLLTEMP"                          , 0x0012, et_dec_val},
@@ -348,7 +348,7 @@ static const ElsterIndex ElsterTable[] =
   // Verdichter 2:        0x0002
   // Pufferladepumpe 1:   0x0040
   // Pufferladepumpe 2:   0x0080
-  // DHC 1:               0x1000
+  // DHC 1:               0x1000 DHC = Heizpatrone
   // DHC 2:               0x2000
   // Warmwasserladepumpe: 0x8000
   // EVU Sperre:          0x8000
@@ -792,10 +792,10 @@ static const ElsterIndex ElsterTable[] =
   { "SOLARSPEICHER_ZUORDNUNG2"                         , 0x0345, 0},
   { "DREHZAHLREGELUNG_SOLARPUMPE1"                     , 0x0346, 0},
   { "DREHZAHLREGELUNG_SOLARPUMPE2"                     , 0x0347, 0},
-  { "BRENNERSPERRZEIT_BEI_RUECKLAUFANHEBUNG_SOLAR"     , 0x0348, 0},
-  { "EINSCHALTDIFFERENZ_RUECKLAUFANHEBUNG_SOLAR"       , 0x0349, 0},
-  { "AUSSCHALTDIFFERENZ_RUECKLAUFANHEBUNG_SOLAR"       , 0x034a, 0},
-  { "SPEICHERVORRANG_FUER_2_SPEICHER_SOLARANLAGEN"     , 0x034b, 0},
+  { "BRENNERSPERRZEIT_BEI_RUECKLAUFANH_SOLAR"          , 0x0348, 0},
+  { "EINSCHALTDIFFERENZ_RUECKLAUFANH_SOLAR"            , 0x0349, 0},
+  { "AUSSCHALTDIFFERENZ_RUECKLAUFANH_SOLAR"            , 0x034a, 0},
+  { "SPEICHERVORRANG_FUER_2_SPEICHER_SOLARANL"         , 0x034b, 0},
   { "SP_PARALLELBETR_TEMP_DIFF_SOLAR"                  , 0x034c, 0},
   { "EINSCHALT_KOLLEKTEMP_BEI_SOLBYPASS_SCHALT"        , 0x034d, 0},
   { "SP_UMSCHICHTUNG_BEI_ANTILEG_BETRIEB"              , 0x034e, 0},
@@ -1340,10 +1340,10 @@ static const ElsterIndex ElsterTable[] =
   { "LUEFT_STUFE_NACHT"                                , 0x056f, 0},
   { "LUEFT_STUFE_ABWESEND"                             , 0x0570, 0},
   { "LUEFT_STUFE_PARTY"                                , 0x0571, 0},
-  { "LUEFT_ZEIT_AUSSERPLAN_STUFE0"                     , 0x0572, 0},
-  { "LUEFT_ZEIT_AUSSERPLAN_STUFE1"                     , 0x0573, 0},
-  { "LUEFT_ZEIT_AUSSERPLAN_STUFE2"                     , 0x0574, 0},
-  { "LUEFT_ZEIT_AUSSERPLAN_STUFE3"                     , 0x0575, 0},
+  { "LUEFT_ZEIT_AUSSERPLAN_STUFE1"                     , 0x0572, 0}, //THZ
+  { "LUEFT_ZEIT_AUSSERPLAN_STUFE2"                     , 0x0573, 0}, //THZ
+  { "LUEFT_ZEIT_AUSSERPLAN_STUFE3"                     , 0x0574, 0}, //THZ
+  { "LUEFT_ZEIT_AUSSERPLAN_STUFE4"                     , 0x0575, 0}, //THZ
   { "LUEFT_PASSIVKUEHLUNG"                             , 0x0576, 0},
   { "LUEFT_ZULUFT_STUFE1"                              , 0x0577, 0},
   { "LUEFT_ZULUFT_STUFE2"                              , 0x0578, 0},
@@ -1376,11 +1376,11 @@ static const ElsterIndex ElsterTable[] =
   { "PARTY_ANFANG_JAHR"                                , 0x0593, 0},
   { "PARTY_ENDE_TAG"                                   , 0x0594, 0},
   { "PARTY_ENDE_MONAT"                                 , 0x0595, 0},
-  { "PARTY_ENDE_JAHR"                                  , 0x0596, 0},
-  { "ZULUFT_SOLL"                                      , 0x0597, 0},
-  { "ZULUFT_IST"                                       , 0x0598, 0},
-  { "ABLUFT_SOLL"                                      , 0x0599, 0},
-  { "ABLUFT_IST"                                       , 0x059a, 0},
+  { "ZULUFT_SOLL"                                      , 0x0596, 0}, //THZ
+  { "ZULUFT_IST"                                       , 0x0597, 0}, //THZ
+  { "ABLUFT_SOLL"                                      , 0x0598, 0}, //THZ
+  { "ABLUFT_IST"                                       , 0x0599, 0}, //THZ
+  { "ABLUFT_SOLL_OLD"                                  , 0x059a, 0}, //THZ
   { "FORTLUFT_SOLL"                                    , 0x059b, 0},
   { "FORTLUFT_IST"                                     , 0x059c, 0},
   { "VERFLUESSIGER_TEMP"                               , 0x059d, 0},
@@ -1630,7 +1630,7 @@ static const ElsterIndex ElsterTable[] =
   { "TEST_OBJEKT_80"                                   , 0x0691, 0},
   { "TEST_OBJEKT_81"                                   , 0x0692, 0},
   { "TEST_OBJEKT_82"                                   , 0x0693, 0},
-  { "TEST_OBJEKT_83"                                   , 0x0694, 0},
+  { "ABLUFT_TEMP"                                      , 0x0694, et_double_val}, //THZ
   { "TEST_OBJEKT_84"                                   , 0x0695, 0},
   { "TEST_OBJEKT_85"                                   , 0x0696, 0},
   { "TEST_OBJEKT_86"                                   , 0x0697, 0},
@@ -3415,6 +3415,8 @@ static const ElsterIndex ElsterTable[] =
   { "ZEITPROG_4_MO_DO"                                 , 0x23b0, 0},
   { "ZEITPROG_4_MO_DO_SCHALT_2"                        , 0x23b1, 0},
   { "ZEITPROG_4_MO_DO_SCHALT_3"                        , 0x23b2, 0},
+  { "ABLUFT_LUFTFEUCHTIGKEIT"                          , 0xc0ef, 0}, //THZ
+  { "ABLUFT_TAUPUNKT"                                  , 0xc0f6, et_double_val}, //THZ
   { "HF_MONITOR_TYP"                                   , 0xc34f, 0},
   { "START_BEREICH_SOFTWARE_SIMULATION"                , 0xc350, 0},
   { "SOFTWARE_SIMULATION_0"                            , 0xc351, 0},
@@ -3806,16 +3808,16 @@ static const ErrorIndex ErrorList[] =
   { 0x0021, "KEINE LEISTUNG"}
 };
 
+
 static const ErrorIndex BetriebsartList[] =
 {
-  { 0x0000, "Notbetrieb" },
-  { 0x0100, "Bereitschaft" }, 
-  { 0x0200, "Automatik" },
-  { 0x0300, "Tagbetrieb" },
-  { 0x0400, "Absenkbetrieb" },
-  { 0x0500, "Warmwasser" }
+  { 0x0000, "Notbetrieb" }, //THZ
+  { 0x0100, "Bereitschaft" }, //THZ
+  { 0x0B00, "Automatik" }, //THZ
+  { 0x0300, "Tagbetrieb" }, //THZ
+  { 0x0400, "Absenkbetrieb" }, //THZ
+  { 0x0500, "Warmwasser" }, //THZ
+  { 0x0E00, "Handbetrieb" } //THZ
 };
 
 #endif
-
-

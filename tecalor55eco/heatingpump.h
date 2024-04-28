@@ -53,11 +53,12 @@ typedef struct
 static const CanMember CanMembers[] =
 {
 //  Name              CanId     ReadId          WriteId         ConfirmationID
-  { "ESPCLIENT"     , 0x700,    {0x00, 0x00},   {0x00, 0x00},   {0xE2, 0x00}}, //The ESP Home Client, thus no valid read/write IDs
+  { "ESPCLIENT"     , 0x6A2,    {0x00, 0x00},   {0x00, 0x00},   {0xE2, 0x00}}, //The ESP Home Client, thus no valid read/write IDs
   { "KESSEL"        , 0x180,    {0x31, 0x00},   {0x30, 0x00},   {0x00, 0x00}},
-  { "MANAGER"       , 0x480,    {0x91, 0x00},   {0x90, 0x00},   {0x00, 0x00}},
+  { "MANAGER"       , 0x301,    {0x91, 0x00},   {0x90, 0x00},   {0x00, 0x00}},
   { "HEIZMODUL"     , 0x500,    {0xA1, 0x00},   {0xA0, 0x00},   {0x00, 0x00}}
 };
+
 
 typedef enum
 {
@@ -79,16 +80,40 @@ const ElsterIndex *  processCanMessage(unsigned short can_id, std::string &signa
     unsigned char byte1;
     unsigned char byte2;
     char charValue[16];
+    char charValue_double[16]; //buffer to try different types
+    char charValue_little_endian[16]; //buffer to try different types
+    char charValue_dec[16]; //buffer to try different types
+    char charValue_standard[16]; //buffer to try different types
+    char charValue_bool[16]; //buffer to try different types
+    
 
-    if(int(msg[2]) == 0xfa) {
+    unsigned short receiver_id; // hex to decode receiver
+    unsigned short  register_num; //hex to decode register
+
+    // erster block maskiert mit F0 *8 ist die adresse + zweite stelel des zweiten blocks - limitiert auf drei stellen 
+    receiver_id = (((msg[0] & 0xF0) *8)) + (msg[1] & 0x0F);
+
+    if (int(msg[2]) == 0xfa)
+    {
         byte1 = msg[5];
         byte2 = msg[6];
-        ei = GetElsterIndex(int((msg[4])+( (msg[3])<<8)));
-    } else {
+        register_num = (unsigned short)((msg[4])+( (msg[3])<<8));
+    }
+    else
+    {
         byte1 = msg[3];
         byte2 = msg[4];
-        ei = GetElsterIndex(int(msg[2]));
+        register_num = (unsigned short)(msg[2]);
     }
+
+    ei = GetElsterIndex(register_num);
+
+    //For Debug purposes decode value with different decoders
+    SetDoubleType(charValue_double, et_double_val, double(byte2+(byte1<<8)));
+    SetValueType(charValue_little_endian, ei->Type, int(byte2+(byte1<<8)));
+    SetValueType(charValue_dec, et_dec_val, int(byte2+(byte1<<8)));
+    SetValueType(charValue_standard, et_default, int(byte2+(byte1<<8)));
+    SetValueType(charValue_bool, et_bool, int(byte2+(byte1<<8)));
 
     switch(ei->Type){
         case et_double_val:
@@ -101,10 +126,22 @@ const ElsterIndex *  processCanMessage(unsigned short can_id, std::string &signa
             SetValueType(charValue, ei->Type, int(byte2+(byte1<<8)));
             break;
     }
+
+    // sprintf(logString, "%d;%s;%s;%s", can_id, ei->Name, charValue, ElsterTypeStr[ei->Type]);
+    // id(received_can_signal).publish_state(logString);
     
-    //sprintf(logString, "%d;%s;%s;%s", can_id, ei->Name, charValue, ElsterTypeStr[ei->Type]);
-    //id(received_can_signal).publish_state(logString);
-    ESP_LOGI("processCanMessage()", "%d:\t%s:\t%s\t(%s)", can_id, ei->Name, charValue, ElsterTypeStr[ei->Type]);
+    if (msg[0] & 0x01)
+    {
+        ESP_LOGI("processCanMessage()", "0x%03x rd 0x%03x\t0x%04x-%s", can_id, receiver_id, register_num, ei->Name);
+    }
+    else if (msg[0] & 0x02)
+        {
+            ESP_LOGI("processCanMessage()", "0x%03x wt 0x%03x\t0x%04x-%s:\t%s\t(%s)\thex:0x%04x st:%s le:%s", can_id, receiver_id, register_num, ei->Name, charValue, ElsterTypeStr[ei->Type], (byte1 << 8) | byte2, charValue_standard, charValue_little_endian);
+        }
+    else
+        {
+            ESP_LOGI("processCanMessage()", "0x%03x %d 0x%03x\t0x%04x-%s:\t%s\t(%s)\thex:0x%04x st:%s le:%s", can_id, msg[0] & 0x0F, receiver_id, register_num, ei->Name, charValue, ElsterTypeStr[ei->Type], (byte1 << 8) | byte2, charValue_standard, charValue_little_endian);
+        }
 
     signalValue = (std::string)charValue;
     return ei;
@@ -154,7 +191,7 @@ void readSignal(const CanMember * member, const ElsterIndex * ei) {
         });
     }
 
-    char logmsg[120];
+    char logmsg[220];
     sprintf(logmsg, "READ \"%s\" (0x%04x) FROM %s (0x%02x {0x%02x, 0x%02x}): %02x, %02x, %02x, %02x, %02x, %02x, %02x", ei->Name, ei->Index, member->Name, member->CanId, member->ReadId[0], member->ReadId[1], data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
     ESP_LOGI("readSignal()", "%s", logmsg);
     
@@ -192,7 +229,7 @@ void writeSignal(const CanMember * member, const ElsterIndex * ei, const char * 
         });
     }
 
-    char logmsg[120];
+    char logmsg[220];
     sprintf(logmsg, "WRITE \"%s\" (0x%04x): \"%d\" TO: %s (0x%02x {0x%02x, 0x%02x}): %02x, %02x, %02x, %02x, %02x, %02x, %02x", ei->Name, ei->Index, writeValue, member->Name, member->CanId, member->ReadId[0], member->ReadId[1], data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
     ESP_LOGI("writeSignal()", "%s", logmsg);
     
@@ -201,6 +238,7 @@ void writeSignal(const CanMember * member, const ElsterIndex * ei, const char * 
     return;
 }
 
+/*
 void publishDate()
 {
     int ijahr = (int)id(JAHR).state;
@@ -301,5 +339,5 @@ void publishTime()
 
     //              id(DATUM).publish_state("20" + to_string((int)id(JAHR).state) + "-" + to_string((int)id(MONAT).state) + "-" + to_string((int)id(TAG).state));
 }
-
+*/
 #endif

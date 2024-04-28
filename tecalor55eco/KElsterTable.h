@@ -29,7 +29,7 @@
   void SetDoubleType(char * Val, unsigned char Type, double Value);
   const char * ElsterTypeToName(unsigned Type);
   int TranslateString(const char * & str, unsigned char elster_type);
-
-
+  const char *getNameFromIndex(unsigned short index);
+  
 #endif
 
