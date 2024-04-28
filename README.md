@@ -6,12 +6,33 @@ It is based on the great work of the Home Assistant community, especially the wo
 
 ## Installation - NEEDS REWORK
 
+
 ### ESPHome
-* Set up a new ESPHome Project "heatingpump"
-* Copy the Content of `heatingpump.yaml` to the new project
-* copy the folder `stiebeltools`to your `/config/esphome` folder (full path should be `/config/esphome/stiebeltools`)
-* Change the WiFi Credentials to yours
-* Change the GPIO Pins under `spi` and `can` to your HW configuration
+* Set up a new ESPHome Project
+* setup the MCP2515 CAN interface according to your wiring/layout (https://esphome.io/components/canbus.html?highlight=mcp2515#mcp2515-component) 
+* copy the folder `tecalor55eco`to your `/config/esphome` folder (full path should be `/config/esphome/tecalor55eco`)
+* add the following packages by inserting the following lines into your ESPHOME project:
+ ```yaml
+  packages:
+   manager: !include tecalor55eco/manager_sensors.yaml
+   kessel: !include tecalor55eco/kessel_sensors.yaml
+   heizmodul: !include tecalor55eco/heizmodul_sensors.yaml
+   compute: !include tecalor55eco/compute_sensors.yaml
+* add the following lines to trigger processing of incomming CAN messages (SET cs_pin according to your setup)
+  canbus:
+    - platform: mcp2515
+      id: my_mcp2515
+      spi_id: McpSpi
+      cs_pin: GPIO33
+      can_id: 0x6a2
+      use_extended_id: false
+      bit_rate: 20kbps
+      on_frame:
+
+    - can_id: 0x180
+      then: !include tecalor55eco/kessel_can.yaml
+
+
 * You may want to check/change the CAN IDs of the Manager, Kessel, etc. In order to do so, you have to change them in two places:
   * `stiebeltools\heatingpump.h`:
     ```c
