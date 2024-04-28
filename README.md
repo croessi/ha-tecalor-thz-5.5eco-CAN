@@ -1,10 +1,10 @@
-# ha-stiebel-control
+# ha-tecalor-thz-5.5eco-CAN
 
-ha-stiebel-control is a ESPhome / Home Assistant configuration to monitor & configure Stiebel Eltron Heating Pumps via a CAN Interface.
+ha-tecalor-thz-5.5eco-CAN is a ESPhome / Home Assistant configuration to monitor & configure tecalor thz 5.5 eco Heating Pumps via a CAN Interface.
 It requires setting up an ESP32 Microcontroller with a MCP2515 CAN-Tranceiver and some configuring in Home Assistant.
-It is based on the great work of the Home Assistant community, especially the work of [roberreiters](https://community.home-assistant.io/t/configured-my-esphome-with-mcp2515-can-bus-for-stiebel-eltron-heating-pump/366053) and [Jürg Müller](http://juerg5524.ch/list_data.php).
+It is based on the great work of the Home Assistant community, especially the work of [bullitt186] https://github.com/bullitt186/ha-stiebel-control/ of [roberreiters](https://community.home-assistant.io/t/configured-my-esphome-with-mcp2515-can-bus-for-stiebel-eltron-heating-pump/366053) and [Jürg Müller](http://juerg5524.ch/list_data.php).
 
-## Installation
+## Installation - NEEDS REWORK
 
 ### ESPHome
 * Set up a new ESPHome Project "heatingpump"
